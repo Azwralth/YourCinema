@@ -38,7 +38,16 @@ struct MovieView: View {
                         LazyVGrid(columns: columns) {
                             ForEach(viewModel.movies, id: \.self) { movie in
                                 NavigationLink {
-                                    DetailView(videoURL: "", ageRating: movie.ageRating ?? 0, genres: movie.genres.first ?? "", nameMovie: movie.title, urlImage: movie.posterUrl ?? "", description: movie.description)
+                                    DetailView(
+                                        movie: MovieDetail(
+                                            videoURL: "",
+                                            ageRating: movie.ageRating ?? 0,
+                                            genres: movie.genres.first ?? "",
+                                            name: movie.title,
+                                            imageURL: movie.posterUrl ?? "",
+                                            description: movie.description
+                                        )
+                                    )
                                 } label: {
                                     MovieCell(movie: movie, imageRepository: ImageRepositoryImpl(networkManager: NetworkManager()))
                                 }
