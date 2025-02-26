@@ -9,9 +9,11 @@ import SwiftUI
 
 struct MovieView: View {
     @StateObject private var viewModel = MovieViewModel(
-        fetchMoviesUseCase: FetchMoviesUseCase(repository: MovieRepositoryImpl(networkManager: NetworkManager())),
+        fetchMoviesUseCase: MainMoviesUseCase(repository: MovieRepositoryImpl(networkManager: NetworkManager())),
         searchMoviesUseCase: SearchMoviesUseCase(repository: MovieRepositoryImpl(networkManager: NetworkManager()))
     )
+    
+    @EnvironmentObject var imageViewModel: ImageViewModel
 
     let columns = [
         GridItem(.flexible(), spacing: 10),
@@ -38,23 +40,14 @@ struct MovieView: View {
                         LazyVGrid(columns: columns) {
                             ForEach(viewModel.movies, id: \.self) { movie in
                                 NavigationLink {
-                                    DetailView(
-                                        movie: MovieDetail(
-                                            videoURL: "",
-                                            ageRating: movie.ageRating ?? 0,
-                                            genres: movie.genres.first ?? "",
-                                            name: movie.title,
-                                            imageURL: movie.posterUrl ?? "",
-                                            description: movie.description
-                                        )
-                                    )
+                                    DetailView(id: movie.id)
                                 } label: {
-                                    MovieCell(movie: movie, imageRepository: ImageRepositoryImpl(networkManager: NetworkManager()))
+                                    MovieCell(movie: movie)
                                 }
                             }
                         }
                         .padding(.horizontal, 14)
-                        .padding(.bottom, 10)
+                        .padding(.vertical, 10)
                     }
                     .refreshable {
                         await viewModel.fetchMovies()
@@ -68,9 +61,4 @@ struct MovieView: View {
             }
         }
     }
-}
-
-
-#Preview {
-    MovieView()
 }

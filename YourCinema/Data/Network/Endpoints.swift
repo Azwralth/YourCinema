@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CinemaSearchIdEndpoint: EndpointProtocol {
+struct CinemaId: EndpointProtocol {
     let id: Int
     
     var path: String {
@@ -23,7 +23,7 @@ struct MainViewCinema: EndpointProtocol {
     }
     
     var parameters: [String : Any]? {
-        ["page": "\(page)", "limit": "30", "type": "movie", "genres.name": "комедия", "rating.kp": "8-10"]
+        ["page": "\(page)", "limit": "30", "type": "movie", "rating.kp": "8-10"]
     }
 }
 

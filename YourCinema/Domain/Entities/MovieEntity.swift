@@ -8,6 +8,7 @@
 import Foundation
 
 struct MovieEntity: Hashable {
+    let id: Int
     let title: String
     let duration: Int?
     let description: String

@@ -10,6 +10,7 @@ import Foundation
 final class MovieMapper {
     static func map(movie: Movie) -> MovieEntity {
         return MovieEntity(
+            id: movie.id ?? 0,
             title: movie.name ?? "Нет названия",
             duration: movie.movieLength,
             description: movie.description ?? "Описание отсутствует",

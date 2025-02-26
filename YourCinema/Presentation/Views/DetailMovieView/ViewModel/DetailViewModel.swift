@@ -8,22 +8,20 @@
 import UIKit
 
 final class DetailViewModel: ObservableObject {
+    @Published var movie: MovieDetailEntity? = nil
+    @Published var error: NetworkError? = nil
     @Published var image: UIImage? = nil
-    @Published var error: NetworkError?
     
-    private let imageRepository: ImageRepository
+    private let movieDetailUseCase: DetailMovieUseCase
     
-    init(imageRepository: ImageRepository) {
-        self.imageRepository = imageRepository
+    init(movieDetailUseCase: DetailMovieUseCase) {
+        self.movieDetailUseCase = movieDetailUseCase
     }
     
     @MainActor
-    func fetchImage(from url: String) async {
-        guard let url = URL(string: url) else { return }
-        
+    func fetchDetailMovie(from id: Int) async {
         do {
-            let imageData = try await imageRepository.fetchImage(from: url)
-            self.image = UIImage(data: imageData)
+            movie = try await movieDetailUseCase.execute(id)
         } catch let error as NetworkError {
             self.error = error
         } catch {
@@ -31,4 +29,3 @@ final class DetailViewModel: ObservableObject {
         }
     }
 }
-

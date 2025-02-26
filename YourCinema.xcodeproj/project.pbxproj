@@ -6,7 +6,18 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		7656BBDA2D674B6800C23A03 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 767B3C692D53910D00E6DCAC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 767B3C702D53910D00E6DCAC;
+			remoteInfo = YourCinema;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		7656BBD62D674B6800C23A03 /* YourCinemaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YourCinemaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		767B3C712D53910D00E6DCAC /* YourCinema.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YourCinema.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -21,6 +32,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		7656BBD72D674B6800C23A03 /* YourCinemaTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = YourCinemaTests;
+			sourceTree = "<group>";
+		};
 		767B3C732D53910D00E6DCAC /* YourCinema */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -32,6 +48,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7656BBD32D674B6800C23A03 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		767B3C6E2D53910D00E6DCAC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -46,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				767B3C732D53910D00E6DCAC /* YourCinema */,
+				7656BBD72D674B6800C23A03 /* YourCinemaTests */,
 				767B3C722D53910D00E6DCAC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				767B3C712D53910D00E6DCAC /* YourCinema.app */,
+				7656BBD62D674B6800C23A03 /* YourCinemaTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,6 +86,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7656BBD52D674B6800C23A03 /* YourCinemaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7656BBDE2D674B6800C23A03 /* Build configuration list for PBXNativeTarget "YourCinemaTests" */;
+			buildPhases = (
+				7656BBD22D674B6800C23A03 /* Sources */,
+				7656BBD32D674B6800C23A03 /* Frameworks */,
+				7656BBD42D674B6800C23A03 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7656BBDB2D674B6800C23A03 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				7656BBD72D674B6800C23A03 /* YourCinemaTests */,
+			);
+			name = YourCinemaTests;
+			packageProductDependencies = (
+			);
+			productName = YourCinemaTests;
+			productReference = 7656BBD62D674B6800C23A03 /* YourCinemaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		767B3C702D53910D00E6DCAC /* YourCinema */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 767B3C7F2D53910F00E6DCAC /* Build configuration list for PBXNativeTarget "YourCinema" */;
@@ -93,6 +141,10 @@
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
+					7656BBD52D674B6800C23A03 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 767B3C702D53910D00E6DCAC;
+					};
 					767B3C702D53910D00E6DCAC = {
 						CreatedOnToolsVersion = 16.2;
 					};
@@ -113,11 +165,19 @@
 			projectRoot = "";
 			targets = (
 				767B3C702D53910D00E6DCAC /* YourCinema */,
+				7656BBD52D674B6800C23A03 /* YourCinemaTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7656BBD42D674B6800C23A03 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		767B3C6F2D53910D00E6DCAC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -128,6 +188,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7656BBD22D674B6800C23A03 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		767B3C6D2D53910D00E6DCAC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -137,7 +204,53 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		7656BBDB2D674B6800C23A03 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 767B3C702D53910D00E6DCAC /* YourCinema */;
+			targetProxy = 7656BBDA2D674B6800C23A03 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		7656BBDC2D674B6800C23A03 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 457HW9WV33;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = home.YourCinemaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YourCinema.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/YourCinema";
+			};
+			name = Debug;
+		};
+		7656BBDD2D674B6800C23A03 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 457HW9WV33;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = home.YourCinemaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YourCinema.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/YourCinema";
+			};
+			name = Release;
+		};
 		767B3C7D2D53910F00E6DCAC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -330,6 +443,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7656BBDE2D674B6800C23A03 /* Build configuration list for PBXNativeTarget "YourCinemaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7656BBDC2D674B6800C23A03 /* Debug */,
+				7656BBDD2D674B6800C23A03 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		767B3C6C2D53910D00E6DCAC /* Build configuration list for PBXProject "YourCinema" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

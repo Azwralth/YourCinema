@@ -2,7 +2,7 @@
 //  MovieViewModel.swift
 //  YourCinema
 //
-//  Created by Владислав Соколов on 10.02.2025.
+//  Created by Владислав Соколов on 24.02.2025.
 //
 
 import UIKit
@@ -13,11 +13,11 @@ final class MovieViewModel: ObservableObject {
     @Published var error: NetworkError?
     @Published var searchText = ""
 
-    private let fetchMoviesUseCase: FetchMoviesUseCase
+    private let fetchMoviesUseCase: MainMoviesUseCase
     private let searchMoviesUseCase: SearchMoviesUseCase
     private var cancellables = Set<AnyCancellable>()
 
-    init(fetchMoviesUseCase: FetchMoviesUseCase, searchMoviesUseCase: SearchMoviesUseCase) {
+    init(fetchMoviesUseCase: MainMoviesUseCase, searchMoviesUseCase: SearchMoviesUseCase) {
         self.fetchMoviesUseCase = fetchMoviesUseCase
         self.searchMoviesUseCase = searchMoviesUseCase
 

@@ -7,7 +7,8 @@
 
 import Foundation
 
-enum NetworkError: Error {
+enum NetworkError: Error, Equatable {
+    case invalidUrl
     case invalidResponse
     case decodingFailed
     case clientError(Int)
@@ -18,6 +19,8 @@ enum NetworkError: Error {
 extension NetworkError: LocalizedError {
     var errorDescription: String? {
         switch self {
+        case .invalidUrl:
+            "Invalid url"
         case .invalidResponse:
             "Invalid response received from the server."
         case .decodingFailed:

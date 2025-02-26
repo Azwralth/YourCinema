@@ -8,31 +8,19 @@
 import SwiftUI
 
 struct MovieCell: View {
+    @StateObject var viewModel = ImageViewModel(imageRepository: ImageRepositoryImpl(networkManager: NetworkImageManager()))
+    @State private var image: UIImage? = nil
+    
     let movie: MovieEntity
-    @StateObject var viewModel: MovieCellViewModel
-
-    init(movie: MovieEntity, imageRepository: ImageRepository) {
-        self.movie = movie
-        self._viewModel = StateObject(wrappedValue: MovieCellViewModel(imageRepository: imageRepository))
-    }
-
+    
     var body: some View {
         VStack {
-            if let image = viewModel.image {
+            if let image {
                 Image(uiImage: image)
                     .resizable()
                     .frame(height: 250)
                     .overlay {
                         Image("mask").resizable()
-                    }
-                    .overlay(alignment: .topTrailing) {
-                        Button {} label: {
-                            Image("like")
-                                .resizable()
-                                .frame(width: 25, height: 22)
-                        }
-                        .padding(.trailing, 15)
-                        .padding(.top, 20)
                     }
                     .overlay(alignment: .topLeading) {
                         Text("\(movie.ageRating ?? 0)+")
@@ -54,15 +42,15 @@ struct MovieCell: View {
             } else {
                 ProgressView().frame(height: 250)
             }
-
+            
             VStack(spacing: 8) {
                 Text(movie.title)
                     .lineLimit(1)
                     .customFont(type: .gilroyExtraBold, size: 19)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundStyle(.white.opacity(0.8))
-
-                Text("\(movie.duration ?? 0) MIN")
+                
+                Text(DurationFormatter.format(minutes: movie.duration ?? 0))
                     .customFont(type: .gilroyExtraBold, size: 17)
                     .foregroundStyle(.gray.opacity(0.8))
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -73,7 +61,7 @@ struct MovieCell: View {
         .onAppear {
             Task {
                 if let url = movie.posterUrl {
-                    await viewModel.fetchImage(from: url)
+                    image = await viewModel.fetchImage(from: url)
                 }
             }
         }

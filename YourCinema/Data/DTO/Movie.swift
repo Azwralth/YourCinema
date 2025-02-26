@@ -6,6 +6,7 @@
 //
 
 struct Movie: Decodable, Hashable {
+    let id: Int?
     let name: String?
     let movieLength: Int?
     let description: String?

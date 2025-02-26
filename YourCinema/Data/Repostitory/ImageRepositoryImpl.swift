@@ -8,9 +8,9 @@
 import Foundation
 
 final class ImageRepositoryImpl: ImageRepository {
-    private let networkManager: ServerApi
+    private let networkManager: ImageApi
 
-    init(networkManager: ServerApi) {
+    init(networkManager: ImageApi) {
         self.networkManager = networkManager
     }
 
