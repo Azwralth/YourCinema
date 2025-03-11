@@ -8,16 +8,24 @@
 import SwiftUI
 
 struct ActorDetailMovieCell: View {
-    let movie: MovieEntity
+    @StateObject private var viewModel = DetailViewModel(movieDetailUseCase: DetailMovieUseCase(repository: DetailMovieRepositoryImpl(networkManager: NetworkManager())))
+    
+    @EnvironmentObject var imageViewModel: ImageViewModel
+    
     let id: Int
+    
     var body: some View {
         VStack {
-            Image("movie")
-                .resizable()
-                .clipShape(RoundedRectangle(cornerRadius: 7))
+            if let image = viewModel.image {
+                Image(uiImage: image)
+                    .resizable()
+                    .clipShape(RoundedRectangle(cornerRadius: 7))
+            } else {
+                ProgressView()
+                    .frame(height: 150)
+            }
             
-            
-            Text(movie.title)
+            Text(viewModel.movie?.name ?? "")
                 .lineLimit(1)
                 .customFont(type: .gilroyExtraBold, size: 19)
                 .minimumScaleFactor(0.5)
@@ -31,9 +39,18 @@ struct ActorDetailMovieCell: View {
         .overlay {
             Color.strokeCell.clipShape(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 2))
         }
+        .onAppear {
+            Task {
+                await viewModel.fetchDetailMovie(from: id)
+                if let url = viewModel.movie?.posterUrl {
+                    viewModel.image = await imageViewModel.fetchImage(from: url)
+                }
+            }
+        }
     }
 }
 
-#Preview {
-    ActorDetailMovieCell(movie: MovieEntity(id: 1345, title: "Avangers The End", duration: 183, description: "123123123", posterUrl: "https://image.openmoviedb.com/kinopoisk-images/1600647/ae22f153-9715-41bb-adb4-f648b3e16092/orig", ageRating: 14, genres: ["action"]), id: 455)
-}
+
+//#Preview {
+//    ActorDetailMovieCell(movie: MovieEntity(id: 1345, title: "Avangers The End", duration: 183, description: "123123123", posterUrl: "https://image.openmoviedb.com/kinopoisk-images/1600647/ae22f153-9715-41bb-adb4-f648b3e16092/orig", ageRating: 14, genres: ["action"]), id: 455)
+//}

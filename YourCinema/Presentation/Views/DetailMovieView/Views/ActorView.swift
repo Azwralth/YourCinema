@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct ActorView: View {
-    let viewModel: ImageViewModel
-    let person: PersonEntity
     @State private var actorImage: UIImage? = nil
+    
+    let viewModel: ImageViewModel
+    let person: ActorEntity
+    
     
     var body: some View {
         VStack {

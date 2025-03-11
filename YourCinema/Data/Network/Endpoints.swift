@@ -38,3 +38,12 @@ struct SearchCinema: EndpointProtocol {
         ["page": "1", "limit": "1", "query": name]
     }
 }
+
+struct PersonId: EndpointProtocol {
+    let id: Int
+    
+    var path: String {
+        "/person/\(id)"
+    }
+    var parameters: [String : Any]?
+}

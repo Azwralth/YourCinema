@@ -12,7 +12,7 @@ struct MovieDetailEntity: Hashable {
     let name: String?
     let posterUrl: String?
     let description: String?
-    let persons: [PersonEntity]
+    let persons: [ActorEntity]
     let year: Int?
     let movieLength: Int?
 }

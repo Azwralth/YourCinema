@@ -16,7 +16,7 @@ final class DetailMovieMapper {
             name: movieDetail.name ?? "",
             posterUrl: movieDetail.poster?.previewUrl ?? "",
             description: movieDetail.description ?? "",
-            persons: movieDetail.persons?.map { PersonEntity(name: $0.name ?? "", photo: $0.photo ?? "", description: $0.description ?? "") } ?? [],
+            persons: movieDetail.persons?.map { ActorEntity(id: $0.id ?? 0, name: $0.name ?? "", photo: $0.photo ?? "", description: $0.description ?? "") } ?? [],
             year: movieDetail.year ?? 0,
             movieLength: movieDetail.movieLength ?? 0
         )

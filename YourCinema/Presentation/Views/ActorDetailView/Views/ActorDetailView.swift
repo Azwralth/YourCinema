@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct ActorDetailView: View {
-    @StateObject private var viewModel = ActorDetailViewModel()
+    @StateObject private var viewModel = ActorDetailViewModel(personDetailUseCase: PersonDetailUseCase(repository: PersonDetailRepositoryImpl(networkManager: NetworkManager())))
     
     @Environment(\.dismiss) private var dismiss
     
     @EnvironmentObject private var imageViewModel: ImageViewModel
-    
-    let person: PersonEntity
+
+    let id: Int
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -39,7 +39,7 @@ struct ActorDetailView: View {
                         .overlay(
                             Image("detailMask")
                                 .resizable()
-                                .frame(width: geometry.size.width, height: geometry.size.height / 1.5)
+                                .frame(width: geometry.size.width, height: geometry.size.height / 1.3)
                         )
                         .ignoresSafeArea()
                 }
@@ -47,7 +47,7 @@ struct ActorDetailView: View {
                 
                 VStack(alignment: .leading) {
                                         
-                    Text(person.name)
+                    Text(viewModel.person?.name ?? "")
                         .customFont(type: .gilroyExtraBold, size: 44)
                         .foregroundStyle(.white.opacity(0.84))
                         .fixedSize(horizontal: false, vertical: true)
@@ -59,17 +59,20 @@ struct ActorDetailView: View {
                                 .scaledToFill()
                                 .frame(width: 80, height: 100)
                                 .clipShape(RoundedRectangle(cornerRadius: 4))
+                        } else {
+                            ProgressView()
+                                .frame(width: 80, height: 100)
                         }
                         VStack(alignment: .leading, spacing: 8) {
-                            Text("4 April, 1965")
+                            Text(viewModel.person?.birthday ?? "")
                                 .customFont(type: .gilroyRegular, size: 14)
                                 .foregroundStyle(.white)
                             
-                            Text("New York City, New York, U.S.")
+                            Text(viewModel.person?.birthPlace?.joined(separator: ", ") ?? "")
                                 .customFont(type: .gilroyRegular, size: 14)
                                 .foregroundStyle(.white)
                             
-                            Text("Actor, producer, singer")
+                            Text(viewModel.person?.proffesion?.joined(separator: ", ") ?? "")
                                 .customFont(type: .gilroyRegular, size: 14)
                                 .foregroundStyle(.mainRed)
                                 
@@ -82,12 +85,17 @@ struct ActorDetailView: View {
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
-                        ForEach(0..<4) { _ in
-                            ActorDetailMovieCell(movie: MovieEntity(id: 1345, title: "Avangers The End", duration: 183, description: "123123123", posterUrl: "https://image.openmoviedb.com/kinopoisk-images/1600647/ae22f153-9715-41bb-adb4-f648b3e16092/orig", ageRating: 14, genres: ["action"]), id: 1343)
-                                .frame(width: geometry.size.width / 3.3, height: geometry.size.height / 4.5)
+                            if let movieIds = viewModel.person?.movieId {
+                                ForEach(Array(Set(movieIds)), id: \.self) { id in
+                                    NavigationLink {
+                                        DetailView(id: id)
+                                    } label: {
+                                        ActorDetailMovieCell(id: id)
+                                            .frame(width: geometry.size.width / 3.6, height: geometry.size.height / 4.8)
+                                    }
+                                }
                             }
                         }
-                        .padding(.horizontal, 8)
                     }
                     
                     Text("Biography")
@@ -96,7 +104,7 @@ struct ActorDetailView: View {
                         .padding(.top, 24)
                         .padding(.bottom, 8)
                     
-                    Text(person.description)
+                    Text("нет биографии")
                         .customFont(type: .gilroyLight, size: 16)
                         .foregroundStyle(.white)
                     
@@ -107,7 +115,8 @@ struct ActorDetailView: View {
             }
             .onAppear {
                 Task {
-                    if let imageUrl = person.photo {
+                    await viewModel.fetchPersonDetail(from: id)
+                    if let imageUrl = viewModel.person?.photo {
                         viewModel.image = await imageViewModel.fetchImage(from: imageUrl)
                     }
                 }
@@ -135,5 +144,6 @@ struct ActorDetailView: View {
 }
 
 //#Preview {
-//    ActorDetailView(person: PersonEntity(name: "", photo: "", description: ""))
+//    ActorDetailView(person: ActorEntity(name: "Гари Льюис", photo: "https://avatars.mds.yandex.net/get-kinopoisk-image/1599028/29216b67-ec98-4c58-b47e-0e22dcee12f6/orig", description: ""), id: 13434)
+//        .environmentObject(ImageViewModel(imageRepository: ImageRepositoryImpl(networkManager: NetworkImageManager())))
 //}

@@ -20,6 +20,7 @@ struct MovieDetail: Decodable {
 }
 
 struct Person: Decodable {
+    let id: Int?
     let name: String?
     let photo: String?
     let description: String?

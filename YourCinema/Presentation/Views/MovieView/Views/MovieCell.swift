@@ -40,7 +40,8 @@ struct MovieCell: View {
                         }
                     }
             } else {
-                ProgressView().frame(height: 250)
+                ProgressView()
+                    .frame(height: 250)
             }
             
             VStack(spacing: 8) {

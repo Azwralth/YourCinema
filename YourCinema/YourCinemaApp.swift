@@ -14,7 +14,7 @@ struct YourCinemaApp: App {
     
     var body: some Scene {
         WindowGroup {
-            MovieView()
+            AuthView()
                 .environmentObject(imageViewModel)
         }
     }

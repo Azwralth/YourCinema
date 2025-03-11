@@ -107,7 +107,7 @@ struct DetailView: View {
                             HStack(spacing: 0) {
                                 ForEach(movie.persons.filter { !$0.name.isEmpty }, id: \.id) { person in
                                     NavigationLink {
-                                        ActorDetailView(person: person)
+                                        ActorDetailView(id: person.id)
                                     } label: {
                                         ActorView(viewModel: imageViewModel, person: person)
                                     }
@@ -136,15 +136,6 @@ struct DetailView: View {
                             Text("Back")
                                 .foregroundStyle(.gray)
                         }
-                    }
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        
-                    } label: {
-                        Image("likeFill")
-                            .resizable()
-                            .frame(width: 25, height: 22)
                     }
                 }
             }
