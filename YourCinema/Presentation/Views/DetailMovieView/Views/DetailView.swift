@@ -24,7 +24,7 @@ struct DetailView: View {
                     GeometryReader { geometry in
                         Image(uiImage: image)
                             .resizable()
-                            .frame(width: geometry.size.width, height: geometry.size.height / 1.32)
+                            .frame(width: geometry.size.width, height: geometry.size.height / 1.38)
                             .overlay(
                                 LinearGradient(
                                     gradient: Gradient(colors: [
@@ -149,6 +149,7 @@ struct DetailView: View {
             }
             .background {
                 Image("BG")
+                    .ignoresSafeArea()
             }
     }
 }

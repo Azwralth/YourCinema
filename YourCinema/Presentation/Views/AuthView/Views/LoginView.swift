@@ -12,11 +12,11 @@ struct LoginView: View {
     @EnvironmentObject var appCoordinator: AppCoordinator
         
     var body: some View {
-        CustomTextField(fieldModel: $viewModel.loginEmailField)
+        CustomTextField(fieldModel: $viewModel.loginEmailField, isSecure: false)
             .textInputAutocapitalization(.never)
         
-        CustomTextField(fieldModel: $viewModel.loginPasswordField)
-            .textInputAutocapitalization(.never)
+        CustomTextField(fieldModel: $viewModel.loginPasswordField, isSecure: true)
+        
         CustomButton(title: "SIGN IN") {
             if viewModel.validateLoginFields() {
                 Task {

@@ -24,7 +24,7 @@ struct ForgotPasswordView: View {
             .padding(.leading, 24)
             .padding(.trailing, 70)
         
-        CustomTextField(fieldModel: $viewModel.forgotEmailField)
+        CustomTextField(fieldModel: $viewModel.forgotEmailField, isSecure: false)
         
         CustomButton(title: "RESET PASSWORD") {
             if viewModel.validateForgotPasswordFields() {

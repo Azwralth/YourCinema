@@ -9,11 +9,20 @@ import SwiftUI
 
 struct CustomTextField: View {
     @Binding var fieldModel: FieldModel
+    let isSecure: Bool
     
     var body: some View {
-        TextField("", text: $fieldModel.value, prompt: Text(fieldModel.fieldType.placeholder)
-            .foregroundColor(.gray.opacity(0.4))
-        )
+        Group {
+            if !isSecure {
+                TextField("", text: $fieldModel.value, prompt: Text(fieldModel.fieldType.placeholder)
+                    .foregroundColor(.gray.opacity(0.4))
+                )
+            } else {
+                SecureField("", text: $fieldModel.value, prompt: Text(fieldModel.fieldType.placeholder)
+                    .foregroundColor(.gray.opacity(0.4))
+                )
+            }
+        }
         .padding()
         .foregroundColor(.white)
         .customFont(type: .gilroyExtraBold)
