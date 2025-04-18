@@ -12,6 +12,8 @@ struct ActorDetailView: View {
     
     @Environment(\.dismiss) private var dismiss
     
+    @EnvironmentObject var appCoordinator: AppCoordinator
+    
     @EnvironmentObject private var imageViewModel: ImageViewModel
 
     let id: Int
@@ -87,12 +89,11 @@ struct ActorDetailView: View {
                         HStack {
                             if let movieIds = viewModel.person?.movieId {
                                 ForEach(Array(Set(movieIds)), id: \.self) { id in
-                                    NavigationLink {
-                                        DetailView(id: id)
-                                    } label: {
-                                        ActorDetailMovieCell(id: id)
-                                            .frame(width: geometry.size.width / 3.6, height: geometry.size.height / 4.8)
-                                    }
+                                    ActorDetailMovieCell(id: id)
+                                        .frame(width: geometry.size.width / 3.6, height: geometry.size.height / 4.8)
+                                        .onTapGesture {
+                                            appCoordinator.push(.movieDetails(id))
+                                        }
                                 }
                             }
                         }
