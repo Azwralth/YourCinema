@@ -16,18 +16,21 @@ struct ForgotPasswordView: View {
             .foregroundStyle(.white)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.leading, 24)
+        
         Text("Tell us your email address, and we’ll get you back on trak in no time")
             .customFont(type: .gilroyExtraBold, size: 14)
             .foregroundStyle(.gray)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.leading, 24)
             .padding(.trailing, 70)
+        
         CustomTextField(fieldModel: $viewModel.forgotEmailField)
+        
         CustomButton(title: "RESET PASSWORD") {
             if viewModel.validateForgotPasswordFields() {
                 print("Login")
             } else {
-                print("❌ Validation failed!")
+                print("Validation failed!")
             }
         }
         HStack {

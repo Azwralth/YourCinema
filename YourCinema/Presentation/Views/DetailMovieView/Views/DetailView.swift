@@ -12,12 +12,13 @@ struct DetailView: View {
     
     @Environment(\.dismiss) private var dismiss
     
+    @EnvironmentObject var appCoordinator: AppCoordinator
+    
     @EnvironmentObject var imageViewModel: ImageViewModel
     
     let id: Int
     
     var body: some View {
-        NavigationStack {
             ZStack(alignment: .top) {
                 if let image = viewModel.image {
                     GeometryReader { geometry in
@@ -106,11 +107,10 @@ struct DetailView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 0) {
                                 ForEach(movie.persons.filter { !$0.name.isEmpty }, id: \.id) { person in
-                                    NavigationLink {
-                                        ActorDetailView(id: person.id)
-                                    } label: {
-                                        ActorView(viewModel: imageViewModel, person: person)
-                                    }
+                                    ActorView(viewModel: imageViewModel, person: person)
+                                        .onTapGesture {
+                                            appCoordinator.push(.actorDetails(person.id))
+                                        }
                                 }
                             }
                         }
@@ -150,6 +150,5 @@ struct DetailView: View {
             .background {
                 Image("BG")
             }
-        }
     }
 }

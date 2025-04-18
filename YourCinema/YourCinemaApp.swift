@@ -11,11 +11,19 @@ import SwiftUI
 struct YourCinemaApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var imageViewModel = ImageViewModel(imageRepository: ImageRepositoryImpl(networkManager: NetworkImageManager()))
+    @StateObject private var appCoordinator = AppCoordinator()
     
     var body: some Scene {
         WindowGroup {
-            AuthView()
-                .environmentObject(imageViewModel)
+            NavigationStack(path: $appCoordinator.path) {
+                AuthView()
+                    .environmentObject(appCoordinator)
+                    .navigationDestination(for: Screen.self) { screen in
+                        appCoordinator.build(screen)
+                            .environmentObject(appCoordinator)
+                            .environmentObject(imageViewModel)
+                    }
+            }
         }
     }
 }

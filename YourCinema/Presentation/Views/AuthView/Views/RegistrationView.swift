@@ -16,7 +16,7 @@ struct RegistrationView: View {
         CustomTextField(fieldModel: $viewModel.registerConfirmPasswordField)
         CustomButton(title: "CREATE ACCOUNT") {
             if viewModel.validateRegistrationFields() {
-                print("Login")
+                Task { await viewModel.register() }
             } else {
                 print("❌ Validation failed!")
             }

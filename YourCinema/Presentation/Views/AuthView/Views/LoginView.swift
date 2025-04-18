@@ -9,20 +9,32 @@ import SwiftUI
 
 struct LoginView: View {
     @ObservedObject var viewModel: AuthViewModel
-    
+    @EnvironmentObject var appCoordinator: AppCoordinator
+        
     var body: some View {
         CustomTextField(fieldModel: $viewModel.loginEmailField)
-
+            .textInputAutocapitalization(.never)
         
         CustomTextField(fieldModel: $viewModel.loginPasswordField)
+            .textInputAutocapitalization(.never)
         CustomButton(title: "SIGN IN") {
             if viewModel.validateLoginFields() {
-                print("Login")
+                Task {
+                    await viewModel.login()
+                    
+                    if viewModel.isAuthenticated {
+                        await MainActor.run {
+                            withAnimation {
+                                appCoordinator.push(.main)
+                            }
+                        }
+                    }
+                }
             } else {
-                print("❌ Validation failed!")
+                print("Validation failed!")
             }
         }
-
+        
         HStack {
             Text("New at YourCinema?")
                 .foregroundStyle(.gray)

@@ -13,6 +13,8 @@ struct MovieView: View {
         searchMoviesUseCase: SearchMoviesUseCase(repository: MovieRepositoryImpl(networkManager: NetworkManager()))
     )
     
+    @EnvironmentObject var appCoordinator: AppCoordinator
+    
     @EnvironmentObject var imageViewModel: ImageViewModel
 
     let columns = [
@@ -21,7 +23,6 @@ struct MovieView: View {
     ]
 
     var body: some View {
-        NavigationStack {
             ZStack {
                 Color.mainBackground.opacity(0.91).ignoresSafeArea()
 
@@ -38,12 +39,11 @@ struct MovieView: View {
                 } else {
                     ScrollView {
                         LazyVGrid(columns: columns) {
-                            ForEach(viewModel.movies, id: \.self) { movie in
-                                NavigationLink {
-                                    DetailView(id: movie.id)
-                                } label: {
-                                    MovieCell(movie: movie)
-                                }
+                            ForEach(viewModel.movies, id: \.id) { movie in
+                                MovieCell(movie: movie)
+                                    .onTapGesture {
+                                        appCoordinator.push(.movieDetails(movie.id))
+                                    }
                             }
                         }
                         .padding(.horizontal, 14)
@@ -54,11 +54,11 @@ struct MovieView: View {
                     }
                 }
             }
+            .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     SearchView(searchText: $viewModel.searchText)
                 }
             }
-        }
     }
 }

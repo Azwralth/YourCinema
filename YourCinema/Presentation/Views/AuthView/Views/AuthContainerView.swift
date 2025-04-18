@@ -10,7 +10,8 @@ import SwiftUI
 struct AuthContainerView<Content: View>: View {
     
     let content: () -> Content
-    @FocusState private var isTextFieldFocused: Bool // Отслеживаем, в фокусе ли TextField
+    
+    @FocusState private var isTextFieldFocused: Bool
     
     init(@ViewBuilder content: @escaping () -> Content) {
         self.content = content
@@ -20,7 +21,7 @@ struct AuthContainerView<Content: View>: View {
         ZStack {
             Color.black.opacity(0.9)
                 .ignoresSafeArea()
-                
+            
             Image("mainBackground")
                 .resizable()
                 .ignoresSafeArea()
@@ -64,6 +65,6 @@ struct AuthContainerView<Content: View>: View {
     }
     
     private func hideKeyboard() {
-            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-        }
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
 }

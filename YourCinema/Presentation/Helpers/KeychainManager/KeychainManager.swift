@@ -6,8 +6,8 @@
 //
 
 import Security
-import Foundation
 import UIKit
+import FirebaseCore
 
 struct KeychainManager {
     
@@ -54,6 +54,7 @@ struct KeychainManager {
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         setupAPIKey()
+        FirebaseApp.configure()
         
         return true
     }

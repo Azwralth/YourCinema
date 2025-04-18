@@ -14,7 +14,7 @@ enum StartView {
 }
 
 struct AuthView: View {
-    @StateObject var viewModel = AuthViewModel()
+    @StateObject var viewModel = AuthViewModel(authService: AuthenticationManager())
 
     var body: some View {
         AuthContainerView {
