@@ -10,7 +10,7 @@ import SwiftUI
 struct LoginView: View {
     @ObservedObject var viewModel: AuthViewModel
     @EnvironmentObject var appCoordinator: AppCoordinator
-        
+    
     var body: some View {
         CustomTextField(fieldModel: $viewModel.loginEmailField, isSecure: false)
             .textInputAutocapitalization(.never)
@@ -18,22 +18,18 @@ struct LoginView: View {
         CustomTextField(fieldModel: $viewModel.loginPasswordField, isSecure: true)
         
         CustomButton(title: "SIGN IN") {
-            if viewModel.validateLoginFields() {
-                Task {
-                    await viewModel.login()
-                    
-                    if viewModel.isAuthenticated {
-                        await MainActor.run {
-                            withAnimation {
-                                appCoordinator.push(.main)
-                            }
-                        }
-                    }
-                }
-            } else {
-                print("Validation failed!")
+            viewModel.loginTapped {
+                appCoordinator.push(.main)
             }
         }
+        .padding(.bottom, viewModel.errorMessage.isEmpty ? -20 : 0)
+        
+        Text(viewModel.errorMessage)
+            .font(.system(size: 13))
+            .foregroundStyle(.mainRed)
+            .onDisappear {
+                viewModel.errorMessage = ""
+            }
         
         HStack {
             Text("New at YourCinema?")

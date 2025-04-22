@@ -77,7 +77,7 @@ struct ActorDetailView: View {
                             Text(viewModel.person?.proffesion?.joined(separator: ", ") ?? "")
                                 .customFont(type: .gilroyRegular, size: 14)
                                 .foregroundStyle(.mainRed)
-                                
+                            
                         }
                     }
                     

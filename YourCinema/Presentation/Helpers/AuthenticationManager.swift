@@ -14,15 +14,29 @@ protocol AuthenticationManagerProtocol {
 }
 
 final class AuthenticationManager: AuthenticationManagerProtocol {
+    
     func signIn(email: String, password: String) async throws {
-        _ = try await Auth.auth().signIn(withEmail: email, password: password)
+        do {
+            try await Auth.auth().signIn(withEmail: email, password: password)
+        } catch {
+            throw error
+        }
     }
     
     func signUp(email: String, password: String) async throws {
-        _ = try await Auth.auth().createUser(withEmail: email, password: password)
+        do {
+            try await Auth.auth().createUser(withEmail: email, password: password)
+        } catch {
+            throw error
+        }
     }
     
     func resetPassword(email: String) async throws {
-        _ = try await Auth.auth().sendPasswordReset(withEmail: email)
+        do {
+            try await Auth.auth().sendPasswordReset(withEmail: email)
+        } catch {
+            throw error
+        }
     }
 }
+

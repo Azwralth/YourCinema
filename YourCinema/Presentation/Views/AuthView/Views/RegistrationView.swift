@@ -9,16 +9,15 @@ import SwiftUI
 
 struct RegistrationView: View {
     @ObservedObject var viewModel: AuthViewModel
+    @EnvironmentObject var appCoordinator: AppCoordinator
     
     var body: some View {
         CustomTextField(fieldModel: $viewModel.registerEmailField, isSecure: false)
         CustomTextField(fieldModel: $viewModel.registerPasswordField, isSecure: true)
         CustomTextField(fieldModel: $viewModel.registerConfirmPasswordField, isSecure: true)
         CustomButton(title: "CREATE ACCOUNT") {
-            if viewModel.validateRegistrationFields() {
-                Task { await viewModel.register() }
-            } else {
-                print("Validation failed!")
+            viewModel.registrationTapped {
+                appCoordinator.push(.main)
             }
         }
         HStack {

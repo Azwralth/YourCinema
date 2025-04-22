@@ -25,9 +25,6 @@ struct ActorView: View {
             } else {
                 ProgressView()
                     .frame(width: 80, height: 100)
-                    .task {
-                        actorImage = await viewModel.fetchImage(from: person.photo ?? "")
-                    }
             }
             
             Text(person.name)

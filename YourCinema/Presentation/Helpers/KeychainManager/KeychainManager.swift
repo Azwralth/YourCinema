@@ -60,7 +60,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
     
     private func setupAPIKey() {
-        let apiKey = "CWCZW7V-VGQMK0M-QHQJ04W-0QG6PFX"
+        let apiKey = "MWA2GMK-VJ848ZV-Q53E564-5HNA763"
         
         if KeychainManager.get(key: "apiKey") == nil {
             KeychainManager.save(key: "apiKey", value: apiKey)

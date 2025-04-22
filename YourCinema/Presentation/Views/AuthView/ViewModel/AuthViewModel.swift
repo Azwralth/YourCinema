@@ -5,8 +5,7 @@
 //  Created by Владислав Соколов on 10.02.2025.
 //
 
-import Foundation
-
+import SwiftUI
 
 @MainActor
 final class AuthViewModel: ObservableObject {
@@ -26,34 +25,66 @@ final class AuthViewModel: ObservableObject {
     
     @Published var startView: StartView = .login
     
+    @Published var errorMessage: String = ""
+    
     private let authService: AuthenticationManagerProtocol
     
     init(authService: AuthenticationManagerProtocol) {
         self.authService = authService
     }
     
-    
     func login() async {
         guard validateLoginFields() else { return }
         
         do {
             try await authService.signIn(email: loginEmailField.value, password: loginPasswordField.value)
-            
-            await MainActor.run {
-                self.isAuthenticated = true
-            }
+            isAuthenticated = true
         } catch {
-            
+            print("error login")
         }
     }
     
     func register() async {
-        guard validateRegistrationFields() else { return }
-        
         do {
             try await authService.signUp(email: registerEmailField.value, password: registerPasswordField.value)
+            isAuthenticated = true
         } catch {
+            print("error register")
+            isAuthenticated = false
+        }
+    }
+    
+    func loginTapped(navigationHandler: @escaping () -> Void) {
+        guard validateLoginFields() else {
+            errorMessage = "Email or password is invalid."
+            return
+        }
+        
+        Task {
+            await login()
             
+            if isAuthenticated {
+                withAnimation {
+                    navigationHandler()
+                }
+            }
+        }
+    }
+    
+    func registrationTapped(navigationHandler: @escaping () -> Void) {
+        guard validateRegistrationFields() else {
+            errorMessage = "Email or password is invalid."
+            return
+        }
+        
+        Task {
+            await register()
+            
+            if isAuthenticated {
+                withAnimation {
+                    navigationHandler()
+                }
+            }
         }
     }
     

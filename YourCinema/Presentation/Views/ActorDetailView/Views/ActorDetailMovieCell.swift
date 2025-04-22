@@ -22,13 +22,12 @@ struct ActorDetailMovieCell: View {
                     .clipShape(RoundedRectangle(cornerRadius: 7))
             } else {
                 ProgressView()
-                    .frame(height: 150)
+                    .frame(height: 130)
             }
             
             Text(viewModel.movie?.name ?? "")
                 .lineLimit(1)
-                .customFont(type: .gilroyExtraBold, size: 19)
-                .minimumScaleFactor(0.5)
+                .customFont(type: .gilroyExtraBold, size: 16)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundStyle(.white.opacity(0.8))
                 .padding(.horizontal, 9)
