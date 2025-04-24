@@ -48,8 +48,3 @@ struct ActorDetailMovieCell: View {
         }
     }
 }
-
-
-//#Preview {
-//    ActorDetailMovieCell(movie: MovieEntity(id: 1345, title: "Avangers The End", duration: 183, description: "123123123", posterUrl: "https://image.openmoviedb.com/kinopoisk-images/1600647/ae22f153-9715-41bb-adb4-f648b3e16092/orig", ageRating: 14, genres: ["action"]), id: 455)
-//}

@@ -25,14 +25,19 @@ struct ForgotPasswordView: View {
             .padding(.trailing, 70)
         
         CustomTextField(fieldModel: $viewModel.forgotEmailField, isSecure: false)
+            .textInputAutocapitalization(.never)
         
         CustomButton(title: "RESET PASSWORD") {
-            if viewModel.validateForgotPasswordFields() {
-                print("Login")
-            } else {
-                print("Validation failed!")
-            }
+            viewModel.isAlertPresented.toggle()
+            viewModel.forgotPasswordTapped()
         }
+        .disabled(viewModel.isForgotPasswordButtonDisabled)
+        .alert("Email Sent", isPresented: $viewModel.isAlertPresented) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text("We've sent password reset instructions to \(viewModel.forgotEmailField.value).")
+        }
+        
         HStack {
             Text("Back to")
                 .foregroundStyle(.gray)

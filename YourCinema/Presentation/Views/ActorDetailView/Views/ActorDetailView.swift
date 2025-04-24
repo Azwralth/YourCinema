@@ -9,9 +9,7 @@ import SwiftUI
 
 struct ActorDetailView: View {
     @StateObject private var viewModel = ActorDetailViewModel(personDetailUseCase: PersonDetailUseCase(repository: PersonDetailRepositoryImpl(networkManager: NetworkManager())))
-    
-    @Environment(\.dismiss) private var dismiss
-    
+        
     @EnvironmentObject var appCoordinator: AppCoordinator
     
     @EnvironmentObject private var imageViewModel: ImageViewModel
@@ -126,7 +124,7 @@ struct ActorDetailView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
-                        dismiss()
+                        appCoordinator.pop()
                     } label: {
                         HStack {
                             Image(systemName: "chevron.left")
@@ -143,8 +141,3 @@ struct ActorDetailView: View {
         }
     }
 }
-
-//#Preview {
-//    ActorDetailView(person: ActorEntity(name: "Гари Льюис", photo: "https://avatars.mds.yandex.net/get-kinopoisk-image/1599028/29216b67-ec98-4c58-b47e-0e22dcee12f6/orig", description: ""), id: 13434)
-//        .environmentObject(ImageViewModel(imageRepository: ImageRepositoryImpl(networkManager: NetworkImageManager())))
-//}

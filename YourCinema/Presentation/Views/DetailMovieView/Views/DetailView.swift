@@ -9,9 +9,7 @@ import SwiftUI
 
 struct DetailView: View {
     @StateObject private var viewModel = DetailViewModel(movieDetailUseCase: DetailMovieUseCase(repository: DetailMovieRepositoryImpl(networkManager: NetworkManager())))
-    
-    @Environment(\.dismiss) private var dismiss
-    
+        
     @EnvironmentObject var appCoordinator: AppCoordinator
     
     @EnvironmentObject var imageViewModel: ImageViewModel
@@ -128,7 +126,7 @@ struct DetailView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
-                        dismiss()
+                        appCoordinator.pop()
                     } label: {
                         HStack {
                             Image(systemName: "chevron.left")

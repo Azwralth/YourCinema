@@ -27,6 +27,12 @@ final class AuthViewModel: ObservableObject {
     
     @Published var errorMessage: String = ""
     
+    @Published var isAlertPresented = false
+    
+    var isForgotPasswordButtonDisabled: Bool {
+        forgotEmailField.value.isEmpty
+    }
+    
     private let authService: AuthenticationManagerProtocol
     
     init(authService: AuthenticationManagerProtocol) {
@@ -51,6 +57,14 @@ final class AuthViewModel: ObservableObject {
         } catch {
             print("error register")
             isAuthenticated = false
+        }
+    }
+    
+    func forgotPassword() async {
+        do {
+            try await authService.resetPassword(email: forgotEmailField.value)
+        } catch {
+            print("error reset password")
         }
     }
     
@@ -85,6 +99,14 @@ final class AuthViewModel: ObservableObject {
                     navigationHandler()
                 }
             }
+        }
+    }
+    
+    func forgotPasswordTapped() {
+        guard validateForgotPasswordFields() else { return }
+        
+        Task {
+            await forgotPassword()
         }
     }
     

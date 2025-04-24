@@ -13,8 +13,12 @@ struct RegistrationView: View {
     
     var body: some View {
         CustomTextField(fieldModel: $viewModel.registerEmailField, isSecure: false)
+            .textInputAutocapitalization(.never)
+        
         CustomTextField(fieldModel: $viewModel.registerPasswordField, isSecure: true)
+        
         CustomTextField(fieldModel: $viewModel.registerConfirmPasswordField, isSecure: true)
+        
         CustomButton(title: "CREATE ACCOUNT") {
             viewModel.registrationTapped {
                 appCoordinator.push(.main)
